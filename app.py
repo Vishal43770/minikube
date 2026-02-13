@@ -79,7 +79,7 @@ def register():
         try:
             cursor = conn.cursor()
             cursor.execute(
-                'INSERT INTO users (name, email, gender) VALUES (%s, %s, %s)',
+                'INSERT INTO users (full_name, email, gender) VALUES (%s, %s, %s)',
                 (name, email, gender)
             )
             conn.commit()
@@ -98,12 +98,30 @@ def info():
     """Info page"""
     return render_template('info.html')
 
+@app.route('/health')
+def health():
+    """Health check endpoint for Kubernetes probes"""
+    try:
+        # Check database connection
+        conn = get_db_connection()
+        if conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT 1')
+            cursor.close()
+            conn.close()
+            return {'status': 'healthy', 'database': 'connected'}, 200
+        else:
+            return {'status': 'unhealthy', 'database': 'disconnected'}, 503
+    except Exception as e:
+        return {'status': 'unhealthy', 'error': str(e)}, 503
+
 # Initialize database on module load (works in all environments)
 try:
     init_db()
 except Exception as e:
     print(f"Warning: Database initialization failed: {e}")
     print("Database will be initialized on first request")
-    
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
