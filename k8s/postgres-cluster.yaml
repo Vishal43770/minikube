@@ -1,0 +1,29 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: hpa-postgres-cluster
+spec:
+  instances: 3
+  
+  # Storage configuration
+  storage:
+    size: 1Gi
+  
+  # Enable Metrics
+  monitoring:
+    enablePodMonitor: true
+  
+  # Resource limits (Optimized for Minikube)
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "100m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+  # Bootstrap: Create 'userdb' and user 'postgres' automatically
+  bootstrap:
+    initdb:
+      database: userdb
+      owner: flask_user

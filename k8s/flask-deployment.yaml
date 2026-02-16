@@ -22,27 +22,27 @@ spec:
         - name: DB_HOST
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: hpa-postgres-cluster-app
               key: host
         - name: POSTGRES_DB
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
-              key: database
+              name: hpa-postgres-cluster-app
+              key: dbname
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
-              key: username
+              name: hpa-postgres-cluster-app
+              key: user
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: hpa-postgres-cluster-app
               key: password
         - name: DB_PORT
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: hpa-postgres-cluster-app
               key: port
         # Liveness probe - restart if unhealthy
         livenessProbe:
