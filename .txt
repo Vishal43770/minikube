@@ -1,6 +1,7 @@
 🚧 Part 2: The "Balance" (What Must Be Done for Production)
 To take this to a company/enterprise level, we need to solve 3 major problems:
 
+
 1. Security Hardening (Critical)
 The Problem: Your containers run as root. If a hacker compromises the app, they could take over the entire server node.
 The Balance:

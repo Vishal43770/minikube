@@ -91,7 +91,7 @@ def register():
         except Exception as e:
             return f"Error: {e}", 500
     
-    return redirect(url_for('index'))
+    return redirect(('index'))
 
 @app.route('/info')
 def info():
