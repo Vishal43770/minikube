@@ -18,4 +18,3 @@ htmlcov/
 .vscode/
 .idea/
 k8s/postgres-secret.yaml
-*.md
